@@ -41,10 +41,11 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn 
-                :disabled="!valid"
                 color="#54575f"
                 :style="'color:white'"
                 @click="onSubmit"
+                :loading="loading"
+                :disabled="!valid || loading"
                 >Sign up</v-btn>    
               </v-card-actions>
             </v-card>
@@ -75,6 +76,11 @@ export default {
             ]
         }
     },
+    computed:{
+      loading(){
+        return this.$store.getters.loading
+      }
+    },
     methods: {
         onSubmit () {
              //logic
@@ -83,7 +89,12 @@ export default {
                  email: this.email,
                  password: this.password
                }
-               console.log(user)    
+               
+               this.$store.dispatch('registerUser', user)
+                .then(()=>{
+                  this.$router.push('/')
+                })
+                .catch()
              }
         }
     },

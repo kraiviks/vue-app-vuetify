@@ -5,7 +5,7 @@
         <v-flex xs12>
           <v-carousel>
             <v-carousel-item
-              v-for="order in orders"
+              v-for="order in promoOrders"
               :key="order.id"
               :src="order.imageSrc"
               reverse-transition="fordere-transition"
@@ -57,36 +57,14 @@
     
 <script>
 export default {
-  data() {
-    return {
-      orders: [
-        {
-          title: "Хот-Дог",
-          description: "Описссссссссссссссс",
-          price: '20',
-          promo: false,
-          imageSrc: require("@/assets/img/HotDog.jpg"),
-          id: "1",
-        },
-        {
-          title: "Паніні",
-          description: "Lorem leo",
-          price: '30',
-          promo: true,
-          imageSrc: require("@/assets/img/panini.jpg"),
-          id: "2",
-        },
-        {
-          title: "Лаваш",
-          description: "Lorem lavash",
-          price: '40',
-          promo: false,
-          imageSrc: require("@/assets/img/lavash.webp"),
-          id: "4",
-        },
-      ],
-    };
-  },
+  computed: {
+    promoOrders(){
+      return this.$store.getters.promoOrders
+    },
+    orders(){
+      return this.$store.getters.orders
+    }
+  }
 };
 </script>
 

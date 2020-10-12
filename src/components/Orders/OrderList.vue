@@ -6,7 +6,7 @@
 
         <v-card
           class="mb-5 elevation-10"
-          v-for="order in orders"
+          v-for="order in myOrders"
           :key="order.id"
         >
           <v-layout row wrap>
@@ -36,28 +36,11 @@
 
 <script>
 export default {
-  data() {
-    return {
-      orders: [
-        {
-          title: "Хот-Дог",
-          description: "Описссссссссссссссс",
-          price: "20",
-          promo: false,
-          imageSrc: require("@/assets/img/HotDog.jpg"),
-          id: "1",
-        },
-        {
-          title: "Паніні",
-          description: "Lorem leo",
-          price: '30',
-          promo: true,
-          imageSrc: require("@/assets/img/panini.jpg"),
-          id: "2",
-        },
-      ],
-    };
-  },
+  computed: {
+    myOrders(){
+      return this.$store.getters.myOrders
+    }
+  }
 };
 </script>
 

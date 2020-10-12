@@ -68,9 +68,11 @@ export default {
               const order = {
                   title: this.title,
                   description: this.description,
-                  promo: this.promo
+                  promo: this.promo,
+                  imageSrc: 'https://static.1000.menu/img/content/24111/zapechennye-rolly-s-kopchennoi-kuricei_1511525655_1_max.jpg'
               }
-              console.log(order)
+              
+              this.$store.dispatch('createOrder', order)
           }
       }
   }

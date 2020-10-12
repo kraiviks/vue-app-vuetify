@@ -18,6 +18,7 @@ const routes = [
   },
   {
     path: '/order/:id',
+    props: true,
     name: 'order',
     component: Order
   },

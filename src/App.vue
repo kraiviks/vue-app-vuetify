@@ -55,11 +55,31 @@
       <!-- If using vue-router -->
       <router-view></router-view>
     </v-container>
-  </v-main>
 
-  <v-footer app>
-    <!-- -->
-  </v-footer>
+    <v-slide-y-reverse-transition>
+      <v-snackbar
+        :timeout="5000"
+        :multi-line="true"
+        color="error"
+        @input="closeError"
+        :value="true"
+        v-if="error"
+      >
+        {{error}}
+  
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            dark
+            text
+            v-bind="attrs"
+            @click="closeError"
+          >
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
+    </v-slide-y-reverse-transition>
+  </v-main>
 </v-app>
 </template>
 
@@ -76,6 +96,16 @@ export default {
         {title: 'New add', icon: 'note-plus', url: '/new'},
         {title: 'My ads', icon: 'format-list-bulleted', url: '/list'}
       ]
+    }
+  },
+  computed:{
+    error(){
+      return this.$store.getters.error
+    }
+  },
+  methods:{
+    closeError(){
+      this.$store.dispatch('clearError')
     }
   }
 };
