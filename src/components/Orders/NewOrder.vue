@@ -36,13 +36,22 @@
         </v-layout>
         <v-layout row wrap>
           <v-flex xs12>
-            <v-switch class="ml-2" v-model="promo" label="Add to promo?"></v-switch>
+            <v-switch
+              class="ml-2"
+              v-model="promo"
+              label="Add to promo?"
+            ></v-switch>
           </v-flex>
         </v-layout>
         <v-layout row wrap>
           <v-flex xs12>
             <v-spacer></v-spacer>
-            <v-btn class="ml-2" :disabled="!valid" color="success" @click="createOrder"
+            <v-btn
+              class="ml-2"
+              :loading="loading"
+              :disabled="!valid"
+              color="success"
+              @click="createOrder"
               >Create order</v-btn
             >
           </v-flex>
@@ -56,27 +65,37 @@
 export default {
   data() {
     return {
-        title: '',
-        description: '',
-        promo: false,
-        valid: false
-    }
+      title: "",
+      description: "",
+      promo: false,
+      valid: false,
+    };
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.loading;
+    },
   },
   methods: {
-      createOrder(){
-          if (this.$refs.form.validate()) {
-              const order = {
-                  title: this.title,
-                  description: this.description,
-                  promo: this.promo,
-                  imageSrc: 'https://static.1000.menu/img/content/24111/zapechennye-rolly-s-kopchennoi-kuricei_1511525655_1_max.jpg'
-              }
-              
-              this.$store.dispatch('createOrder', order)
-          }
+    createOrder() {
+      if (this.$refs.form.validate()) {
+        const order = {
+          title: this.title,
+          description: this.description,
+          promo: this.promo,
+          imageSrc:
+            "https://static.1000.menu/img/content/24111/zapechennye-rolly-s-kopchennoi-kuricei_1511525655_1_max.jpg",
+        };
+
+        this.$store.dispatch("createOrder", order)
+          .then(() => {
+            this.$router.push("/list");
+          })
+          .catch()
       }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
